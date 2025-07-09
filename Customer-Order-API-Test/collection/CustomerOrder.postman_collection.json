@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "ba22bf30-c82a-4263-8895-72fa4e45a76b",
+		"name": "CustomerOrder API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45732013",
+		"_collection_link": "https://anantakhurana-8355889.postman.co/workspace/learning-api-testing~ba4573d6-9514-4602-84e3-9eec42242cd7/collection/45732013-ba22bf30-c82a-4263-8895-72fa4e45a76b?action=share&source=collection_link&creator=45732013"
+	},
+	"item": [
+		{
+			"name": "customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has 'customers' array\", function () {\r",
+							"    pm.expect(res).to.have.property(\"customers\");\r",
+							"    pm.expect(res.customers).to.be.an(\"array\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://48eb254a-fa0a-49dd-8054-bd48ad93949d.mock.pstmn.io/customers",
+					"protocol": "https",
+					"host": [
+						"48eb254a-fa0a-49dd-8054-bd48ad93949d",
+						"mock",
+						"pstmn",
+						"io"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "customers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dummyurl.com/customers",
+							"protocol": "https",
+							"host": [
+								"dummyurl",
+								"com"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\n    \"customers\": [\n        {\n            \"id\": 101,\n            \"name\": \"Anjali Mehta\",\n            \"email\": \"anjali@example.com\"\n        },\n        {\n            \"id\": 102,\n            \"name\": \"Ravi Sharma\",\n            \"email\": \"ravi@example.com\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Orders array is present and valid\", () => {\r",
+							"    pm.expect(res).to.have.property(\"orders\");\r",
+							"    res.orders.forEach(order => {\r",
+							"        pm.expect(order).to.have.all.keys(\"id\", \"customerId\", \"product\", \"quantity\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://48eb254a-fa0a-49dd-8054-bd48ad93949d.mock.pstmn.io/orders",
+					"protocol": "https",
+					"host": [
+						"48eb254a-fa0a-49dd-8054-bd48ad93949d",
+						"mock",
+						"pstmn",
+						"io"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "orders",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dummyurl.com/orders",
+							"protocol": "https",
+							"host": [
+								"dummyurl",
+								"com"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"customerId\": 101,\r\n      \"product\": \"Laptop\",\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"customerId\": 102,\r\n      \"product\": \"Mouse\",\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}\r\n"
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Order created message is present\", () => {\r",
+							"    pm.expect(res).to.have.property(\"message\", \"Order created successfully\");\r",
+							"    pm.expect(res).to.have.property(\"orderId\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://48eb254a-fa0a-49dd-8054-bd48ad93949d.mock.pstmn.io/orders",
+					"protocol": "https",
+					"host": [
+						"48eb254a-fa0a-49dd-8054-bd48ad93949d",
+						"mock",
+						"pstmn",
+						"io"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "orders",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://dummyurl.com/orders",
+							"protocol": "https",
+							"host": [
+								"dummyurl",
+								"com"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n  \"message\": \"Order created successfully\",\r\n  \"orderId\": 3\r\n}\r\n"
+				}
+			]
+		},
+		{
+			"name": "orders/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Delete confirmation message\", () => {\r",
+							"    pm.expect(res).to.have.property(\"message\", \"Order deleted successfully\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://48eb254a-fa0a-49dd-8054-bd48ad93949d.mock.pstmn.io/orders/2",
+					"protocol": "https",
+					"host": [
+						"48eb254a-fa0a-49dd-8054-bd48ad93949d",
+						"mock",
+						"pstmn",
+						"io"
+					],
+					"path": [
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "orders/:id",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://dummyurl.com/orders/2",
+							"protocol": "https",
+							"host": [
+								"dummyurl",
+								"com"
+							],
+							"path": [
+								"orders",
+								"2"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n  \"message\": \"Order deleted successfully\"\r\n}\r\n"
+				}
+			]
+		}
+	]
+}
